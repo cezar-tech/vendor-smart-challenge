@@ -204,6 +204,14 @@ public class VendorSmartRepository {
         .collect(Collectors.toCollection(() -> new ArrayList<>(sortedVendors.size())));
   }
 
+  public int reachable(int locationId, int serviceId) {
+    val job =
+        this.existsJob4LocAndSvc(Job.builder().locationId(locationId).serviceId(serviceId).build());
+    if (job == null) return 0;
+
+    return this.job2VendorMapping.get(job.getId()).size();
+  }
+
   public static final String PATH_2_RESOURCES =
       "classpath:vendor/smart/com/vs_challenge/repository/";
 }

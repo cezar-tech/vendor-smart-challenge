@@ -26,8 +26,8 @@ import vendor.smart.com.vs_challenge.repository.VendorSmartRepository.VendorSmar
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "vendor-smart", produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "VS-Challenge", description = "The Vendor Smart Challenge")
+@RequestMapping(value = "vendor-smart", produces = MediaType.APPLICATION_JSON_VALUE)
 public class VendorSmartController {
   private final VendorSmartRepository repository;
 
@@ -78,5 +78,14 @@ public class VendorSmartController {
     }
 
     return ResponseEntity.ok(vendors);
+  }
+
+  @Operation(
+      summary = "Fetch all reachable vendors",
+      description = "Fetches all reachable vendors of a region")
+  @GetMapping("reachable-vendors")
+  public ResponseEntity<Integer> vendorsForJob(
+      @RequestParam @Min(0) int locationId, @RequestParam @Min(0) int serviceId) {
+    return ResponseEntity.ok(this.repository.reachable(locationId, serviceId));
   }
 }

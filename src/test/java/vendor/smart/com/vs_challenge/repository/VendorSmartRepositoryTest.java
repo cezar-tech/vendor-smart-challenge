@@ -205,5 +205,9 @@ class VendorSmartRepositoryTest {
         List.of(expectedVendor2, expectedVendor1),
         repo.vendorsForJob(97L),
         "Should have auto created the job and mapped to the vendor and prioritized the compliant one");
+    assertEquals(
+        2, repo.reachable(1, 1), "Should calculate the proper amount of reachable vendors");
+    assertEquals(
+        1, repo.reachable(2, 3), "Should calculate the proper amount of reachable vendors");
   }
 }
